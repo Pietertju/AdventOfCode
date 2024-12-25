@@ -37,6 +37,8 @@ def getWireCalc(values, operations, wire):
         getWireCalc(values, operations, a)
     if not (b in values):
         getWireCalc(values, operations, b)
+    
+    print(a, " ", operation, "  ", b, " -> ", wire)
 
     aValue = values[a]
     bValue = values[b]
@@ -75,10 +77,30 @@ def partOne(values, operations):
 
     print("Part One: ", answer)
 
-def partTwo(values, operations):
+def swapPairs(operations, a, b):
+    tempOp = operations[a]
+    operations[a] = operations[b]
+    operations[b] = tempOp
 
+def partTwo(values, operations):
+    swapPairs(operations, "z08", "mvb")
+    swapPairs(operations, "rds", "jss")
+    swapPairs(operations, "z18", "wss")
+    swapPairs(operations, "z23", "bmn")
+    for i in range(0, 46):
+        if i < 10:
+            getWireCalc(values, operations, "z0"+str(i))
+        else:
+            getWireCalc(values, operations, "z"+str(i))
+        print("-----------------------")
+        
+    wrongThingies = sorted(["z08", "mvb", "rds", "jss", "wss", "z18", "z23", "bmn"])
+    for thing in wrongThingies:
+        print(thing, end=",")
+    print()
 
     print("Part Two: ", 0)
 
 values, operations = getInput()
-partOne(deepcopy(values), deepcopy(operations))
+#partOne(deepcopy(values), deepcopy(operations))
+partTwo(values, operations)
