@@ -38,7 +38,7 @@ def partOne(connections):
                     validTuples.append((connection, toConnection, thirdConnection))
 
     res = set(map(tuple, map(sorted, validTuples)))
-    #print(res)
+
     print("Part One: ", len(res))
 
 def bron_kerbosch(connections, r=set(), p=None, x=set()):
@@ -48,7 +48,7 @@ def bron_kerbosch(connections, r=set(), p=None, x=set()):
     if not p and not x:
         yield r
     else:
-        u = next(iter(p | x))  # Choose a pivot vertex
+        u = next(iter(p | x))
         for v in p - set(connections[u]):
             yield from bron_kerbosch(connections, r | {v}, p & set(connections[v]), x & set(connections[v]))
             p.remove(v)
@@ -62,5 +62,7 @@ def partTwo(connections):
     largest = sorted(find_largest_complete_subgraph(connections))
     for thing in largest:
         print(thing, end=",")
+
 connections = getInput()
+partOne(connections)
 partTwo(connections)
